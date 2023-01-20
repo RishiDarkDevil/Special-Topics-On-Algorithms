@@ -164,6 +164,13 @@ int main() {
 		for (int j = 1; j < fill_rows; ++j) {
 			vector<bool> row_B = add_rows(precompute_B[j - bin_exp(2, p)], partition_B[i][m - (p+1)]);
 			precompute_B.push_back(row_B);
+
+			// Why this works? Because if we reach 2^p then we need to cover 2^p more steps to reach 2^(p+1)
+			// which is the next power of 2 after 2^p.
+			// So, whenever we reach 2^p - 1
+			// We use the recursive pattern i.e. (000, 001),
+			// (010, 011 -- see the second bit repeats the same pattern as before set),
+			// (100, 101, 110, 111 -- see the second and third bit repeats the same pattern as all the previous two sets)
 			if (bp == 1) {
 				bp = j + 1;
 				p++;
